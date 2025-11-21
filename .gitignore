@@ -1,0 +1,20 @@
+# Node/TypeScript artifacts
+node_modules/
+build/
+dist/
+*.tsbuildinfo
+
+# Logs and temp
+*.log
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.cache/
+.tmp/
+
+# OS
+.DS_Store
+
+# Local clones we don't want committed
+react/
+chrome-devtools-mcp/

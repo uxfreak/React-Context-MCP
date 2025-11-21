@@ -1,0 +1,41 @@
+{
+  "name": "react-devtools-mcp",
+  "version": "0.1.0",
+  "description": "MCP server exposing React DevTools capabilities against a live Chrome instance",
+  "type": "module",
+  "bin": "./build/src/main.js",
+  "main": "./build/src/main.js",
+  "scripts": {
+    "clean": "node -e \"require('fs').rmSync('build', {recursive: true, force: true})\"",
+    "build": "tsc",
+    "start": "npm run build && node build/src/main.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "files": [
+    "build/src",
+    "LICENSE",
+    "!*.tsbuildinfo"
+  ],
+  "repository": "local/react-devtools-mcp",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": "^20.19.0 || ^22.12.0 || >=23"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.21.1",
+    "core-js": "3.47.0",
+    "debug": "4.4.3",
+    "puppeteer": "24.31.0",
+    "puppeteer-core": "24.31.0",
+    "react-devtools-inline": "file:../react/packages/react-devtools-inline",
+    "react-devtools-shared": "file:../react/packages/react-devtools-shared",
+    "zod": "^3.23.8",
+    "yargs": "18.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.3",
+    "@types/debug": "^4.1.12",
+    "@types/yargs": "^17.0.33",
+    "typescript": "^5.9.2"
+  }
+}
