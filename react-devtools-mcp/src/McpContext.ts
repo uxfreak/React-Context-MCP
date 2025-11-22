@@ -88,4 +88,10 @@ export class McpContext {
     // Placeholder until full bridge is implemented.
     return {ok: false, message: 'Highlight not implemented yet'};
   }
+
+  async takeSnapshot(verbose = false) {
+    const page = this.getSelectedPage();
+    logger('takeSnapshot on selected page');
+    return this.#getReactSession(page).takeSnapshot(verbose);
+  }
 }

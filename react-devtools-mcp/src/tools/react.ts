@@ -142,10 +142,28 @@ export const highlightComponent = defineTool({
   },
 });
 
+export const takeSnapshot = defineTool({
+  name: 'take_snapshot',
+  description:
+    'Take an accessibility tree snapshot of the current page. Returns a hierarchical tree with roles, names, and UIDs for finding text and UI elements.',
+  schema: {
+    verbose: zod.boolean().optional().describe('Include all elements (true) or only interesting ones (false, default)'),
+  },
+  handler: async (request, response, context) => {
+    const snapshot = await context.takeSnapshot(request.params.verbose ?? false);
+    if (!snapshot) {
+      response.appendResponseLine('No snapshot available.');
+      return;
+    }
+    response.appendResponseLine(JSON.stringify(snapshot, null, 2));
+  },
+});
+
 export const tools = [
   ensureReactAttached,
   listReactRoots,
   listComponents,
   getComponent,
   highlightComponent,
+  takeSnapshot,
 ];

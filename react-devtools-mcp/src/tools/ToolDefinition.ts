@@ -32,6 +32,7 @@ export type Context = Readonly<{
   }): Promise<ComponentNode[]>;
   getComponentById(id: string): Promise<ComponentDetails | null>;
   highlightComponent(id: string): Promise<{ok: boolean; message: string}>;
+  takeSnapshot(verbose?: boolean): Promise<Snapshot | null>;
 }>;
 
 export interface ReactAttachResult {
@@ -76,6 +77,62 @@ export interface ComponentDetails {
     columnNumber?: number;
   };
   path: string;
+}
+
+export interface SnapshotNode {
+  role?: string;
+  name?: string;
+  value?: string | number;
+  description?: string;
+  keyshortcuts?: string;
+  roledescription?: string;
+  valuetext?: string;
+  disabled?: boolean;
+  expanded?: boolean;
+  focused?: boolean;
+  modal?: boolean;
+  multiline?: boolean;
+  multiselectable?: boolean;
+  readonly?: boolean;
+  required?: boolean;
+  selected?: boolean;
+  checked?: boolean | 'mixed';
+  pressed?: boolean | 'mixed';
+  level?: number;
+  valuemin?: number;
+  valuemax?: number;
+  autocomplete?: string;
+  haspopup?: string;
+  invalid?: string;
+  orientation?: string;
+  children?: SnapshotNode[];
+  uid?: string;
+  reactComponent?: {
+    id: string;
+    name: string;
+    type: string;
+    source?: {
+      fileName?: string;
+      lineNumber?: number;
+      columnNumber?: number;
+    };
+    props?: unknown;
+    state?: unknown;
+    owners?: Array<{
+      name: string;
+      type: string;
+      source?: {
+        fileName?: string;
+        lineNumber?: number;
+        columnNumber?: number;
+      };
+    }>;
+  };
+}
+
+export interface Snapshot {
+  root: SnapshotNode;
+  snapshotId: string;
 }
 
 export function defineTool<Schema extends zod.ZodRawShape>(

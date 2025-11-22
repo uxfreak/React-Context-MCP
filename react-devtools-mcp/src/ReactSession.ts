@@ -278,4 +278,55 @@ export class ReactSession {
     }
     return results;
   }
+
+  async takeSnapshot(verbose = false) {
+    await this.ensureBackendInjected();
+
+    // Step 1: Get basic accessibility tree
+    const axTree = await this.#page.accessibility.snapshot({
+      interestingOnly: !verbose,
+    });
+
+    if (!axTree) {
+      return null;
+    }
+
+    const snapshotId = Date.now().toString();
+    let uidCounter = 0;
+
+    // Process a11y tree and add UIDs
+    const processNode = (node: any): any => {
+      const uid = `${snapshotId}_${uidCounter++}`;
+      const processed: any = {
+        role: node.role,
+        name: node.name,
+        uid,
+      };
+
+      // Copy a11y properties
+      if (node.value !== undefined) processed.value = node.value;
+      if (node.description !== undefined) processed.description = node.description;
+      if (node.keyshortcuts !== undefined) processed.keyshortcuts = node.keyshortcuts;
+      if (node.roledescription !== undefined) processed.roledescription = node.roledescription;
+      if (node.disabled !== undefined) processed.disabled = node.disabled;
+      if (node.expanded !== undefined) processed.expanded = node.expanded;
+      if (node.focused !== undefined) processed.focused = node.focused;
+      if (node.checked !== undefined) processed.checked = node.checked;
+      if (node.pressed !== undefined) processed.pressed = node.pressed;
+
+      // Process children recursively
+      if (node.children && node.children.length > 0) {
+        processed.children = node.children.map((child: any) => processNode(child));
+      }
+
+      return processed;
+    };
+
+    const root = processNode(axTree);
+
+    return {
+      root,
+      snapshotId,
+    };
+  }
 }
