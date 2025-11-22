@@ -16,6 +16,55 @@ npm install
 npm run build
 ```
 
+## Requirements for Source Location Tracking
+
+For the `get_react_component_from_snapshot` tool to extract source file locations (React 19+ compatible), your React application needs the Babel plugin that adds `data-inspector-*` attributes:
+
+### Vite
+
+Add to `vite.config.ts`:
+```typescript
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [
+    react({
+      babel: {
+        plugins: [
+          ['@babel/plugin-transform-react-jsx-development', {
+            // Adds data-inspector-line, data-inspector-column, etc.
+          }]
+        ]
+      }
+    })
+  ]
+})
+```
+
+### Webpack / Create React App
+
+The plugin is automatically included in development mode. No additional configuration needed.
+
+### Next.js
+
+Next.js includes this by default in development mode.
+
+### Manual Babel Config
+
+Add to `.babelrc` or `babel.config.js`:
+```json
+{
+  "env": {
+    "development": {
+      "plugins": ["@babel/plugin-transform-react-jsx-development"]
+    }
+  }
+}
+```
+
+**Note:** Source location tracking only works in development builds. Production builds strip this metadata for performance.
+
 ## Usage
 
 ### Starting the Server
@@ -167,7 +216,7 @@ Visually highlight a component in the browser.
 
 ### 7. `take_snapshot`
 
-**NEW!** Capture accessibility tree snapshot to find text and UI elements.
+Capture accessibility tree snapshot to find text and UI elements on the page.
 
 **Arguments:**
 - `verbose` (boolean, optional, default: false) - Include all elements or only "interesting" ones
@@ -183,7 +232,32 @@ Visually highlight a component in the browser.
   "result": {
     "content": [{
       "type": "text",
-      "text": "{\n  \"root\": {\n    \"role\": \"RootWebArea\",\n    \"name\": \"My App\",\n    \"uid\": \"1763797635548_0\",\n    \"children\": [\n      {\n        \"role\": \"button\",\n        \"name\": \"Log in\",\n        \"uid\": \"1763797635548_46\"\n      }\n    ]\n  },\n  \"snapshotId\": \"1763797635548\"\n}"
+      "text": "{\n  \"root\": {\n    \"role\": \"RootWebArea\",\n    \"name\": \"My App\",\n    \"uid\": \"1763797635548_0\",\n    \"children\": [\n      {\n        \"role\": \"button\",\n        \"name\": \"Sign up\",\n        \"uid\": \"1763797635548_38\"\n      },\n      {\n        \"role\": \"button\",\n        \"name\": \"Log in\",\n        \"uid\": \"1763797635548_46\"\n      }\n    ]\n  },\n  \"snapshotId\": \"1763797635548\"\n}"
+    }]
+  }
+}
+```
+
+### 8. `get_react_component_from_snapshot`
+
+**NEW!** Get complete React component information for an element found in the snapshot. Returns component name, type, props, state, source location, and owner hierarchy.
+
+**Arguments:**
+- `role` (string) - Element role from snapshot (e.g., "button", "heading", "paragraph")
+- `name` (string) - Element name/text from snapshot (e.g., "Sign up", "Log in")
+
+**Example:**
+```json
+{"jsonrpc":"2.0","id":"7","method":"tools/call","params":{"name":"get_react_component_from_snapshot","arguments":{"role":"button","name":"Sign up"}}}
+```
+
+**Response:**
+```json
+{
+  "result": {
+    "content": [{
+      "type": "text",
+      "text": "{\n  \"success\": true,\n  \"component\": {\n    \"name\": \"Button\",\n    \"type\": \"ForwardRef\",\n    \"props\": {\n      \"variant\": \"primary\",\n      \"size\": \"large\",\n      \"onClick\": {},\n      \"children\": \"Sign up\"\n    },\n    \"state\": {...},\n    \"source\": {\n      \"fileName\": \"src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx\",\n      \"lineNumber\": 361,\n      \"columnNumber\": 10\n    },\n    \"owners\": [\n      {\"name\": \"Box\", \"type\": \"ForwardRef\", \"source\": {...}},\n      {\"name\": \"OnboardingScreen\", \"type\": \"FunctionComponent\", \"source\": {...}},\n      {\"name\": \"OnboardingPage\", \"type\": \"FunctionComponent\", \"source\": {...}}\n    ]\n  }\n}"
     }]
   }
 }
@@ -191,30 +265,69 @@ Visually highlight a component in the browser.
 
 ## Common Workflows
 
-### Finding Text on Page (e.g., "log in")
+### Finding Source Location of Text on Page
 
-**Step 1: Take a snapshot**
+This workflow demonstrates how to find any visible text (e.g., "Sign up") and trace it back to the React component and source file.
+
+**Step 1: Take a snapshot to find the text**
 ```bash
-echo '{"jsonrpc":"2.0","id":"init","method":"initialize","params":{"protocolVersion":"2024-12-19","capabilities":{},"clientInfo":{"name":"cli","version":"0.0.0"}}}
-{"jsonrpc":"2.0","id":"1","method":"tools/call","params":{"name":"take_snapshot","arguments":{"verbose":true}}}' | \
-TARGET_URL=http://localhost:51743 node build/src/main.js --isolated --headless
+cat <<'EOF' > find-text.jsonl
+{"jsonrpc":"2.0","id":"init","method":"initialize","params":{"protocolVersion":"2024-12-19","capabilities":{},"clientInfo":{"name":"cli","version":"0.0.0"}}}
+{"jsonrpc":"2.0","id":"1","method":"tools/call","params":{"name":"take_snapshot","arguments":{"verbose":true}}}
+EOF
+
+(cat find-text.jsonl; sleep 10) | TARGET_URL=http://localhost:3000 node build/src/main.js --isolated --headless
 ```
 
 **Step 2: Search the snapshot JSON for your text**
 
-Look for nodes with `"name": "Log in"`:
+Look for nodes with your target text in the `name` field:
 ```json
 {
   "role": "button",
-  "name": "Log in",
-  "uid": "1763797635548_46",
-  "children": [...]
+  "name": "Sign up",
+  "uid": "1763797635548_38"
 }
 ```
 
-**Step 3: Find the React component (coming soon)**
+Note the `role` ("button") and `name` ("Sign up") values.
 
-The next step is to map the DOM element (via UID) back to its React component to get source location.
+**Step 3: Get React component information**
+```bash
+cat <<'EOF' > get-component.jsonl
+{"jsonrpc":"2.0","id":"init","method":"initialize","params":{"protocolVersion":"2024-12-19","capabilities":{},"clientInfo":{"name":"cli","version":"0.0.0"}}}
+{"jsonrpc":"2.0","id":"2","method":"tools/call","params":{"name":"get_react_component_from_snapshot","arguments":{"role":"button","name":"Sign up"}}}
+EOF
+
+(cat get-component.jsonl; sleep 10) | TARGET_URL=http://localhost:3000 node build/src/main.js --isolated --headless
+```
+
+**Result: Complete component information**
+```json
+{
+  "success": true,
+  "component": {
+    "name": "Button",
+    "type": "ForwardRef",
+    "source": {
+      "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+      "lineNumber": 361,
+      "columnNumber": 10
+    },
+    "props": {"variant": "primary", "size": "large", "children": "Sign up"},
+    "owners": [
+      {"name": "OnboardingScreen", "source": "src/pages/OnboardingPage.tsx:136"},
+      {"name": "OnboardingPage", "source": "src/App.tsx:102"}
+    ]
+  }
+}
+```
+
+Now you know:
+- ✅ Component name: `Button` (ForwardRef)
+- ✅ Source file: `OnboardingScreen.tsx` line 361
+- ✅ Props: `variant="primary" size="large"`
+- ✅ Parent components: `OnboardingScreen` → `OnboardingPage` → `App`
 
 ### Testing via JSON-RPC
 
@@ -260,12 +373,16 @@ The server walks the React fiber tree depth-first:
 - Generates stable path-based IDs for each component
 - Extracts props, state, source info from fiber properties
 
-### Source Location Extraction
+### Source Location Extraction (React 19 Compatible)
 
-Source information comes from (in priority order):
-1. React Inspector attributes (`data-inspector-line`, etc.)
-2. Fiber `_debugSource` / `_debugInfo` properties
-3. Stack trace parsing (fallback)
+Source information is extracted from `data-inspector-*` attributes added by Babel:
+- `data-inspector-relative-path` - Source file path
+- `data-inspector-line` - Line number
+- `data-inspector-column` - Column number
+
+**Why not `_debugSource`?** React 19 disabled the `_debugSource` and `_debugOwner` fiber properties for performance. This server uses the Babel plugin approach which is more reliable and future-proof.
+
+**Component Hierarchy:** The owners chain is built by walking up the fiber tree using `fiber.return` pointers, collecting all authored components (FunctionComponent, ClassComponent, ForwardRef, MemoComponent) along the way.
 
 ### Accessibility Tree Snapshot
 
@@ -315,12 +432,13 @@ node build/src/main.js --isolated
 
 ## Future Enhancements
 
-- [ ] Map accessibility tree UIDs to React components
-- [ ] Get component source from DOM element selection
+- [x] Map accessibility tree to React components (`get_react_component_from_snapshot`)
+- [x] Get component source from text/UI elements
 - [ ] Support for multiple React roots
 - [ ] Component state editing
 - [ ] Props diffing between renders
 - [ ] Performance profiling integration
+- [ ] Click-to-inspect UI element → get React component
 
 ## License
 
