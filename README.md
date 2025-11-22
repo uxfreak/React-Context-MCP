@@ -1,7 +1,11 @@
-# React Context MCP
+<div align="center">
+  <img src="logo.png" alt="React Context MCP" width="600">
+  <br><br>
 
 [![npm version](https://img.shields.io/npm/v/react-context-mcp.svg)](https://npmjs.org/package/react-context-mcp)
 [![License](https://img.shields.io/npm/l/react-context-mcp.svg)](https://github.com/uxfreak/react-context-mcp/blob/main/LICENSE)
+
+</div>
 
 `react-context-mcp` lets your AI coding assistant (Claude, Cursor, Copilot, Gemini) inspect and debug React applications in a live Chrome browser. It acts as a Model Context Protocol (MCP) server, providing access to React component trees, props, state, source locations, and full browser control for reliable debugging and development assistance.
 
