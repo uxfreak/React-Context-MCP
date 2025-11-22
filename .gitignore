@@ -18,3 +18,10 @@ pnpm-debug.log*
 # Local clones we don't want committed
 react/
 chrome-devtools-mcp/
+
+# Internal development files (not for public repo)
+CLAUDE.md
+ERROR_HANDLING.md
+FINDING_TEXT_EXAMPLE.md
+TESTING.md
+test-fiber-access.js
