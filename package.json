@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "description": "MCP server for React DevTools - inspect React applications via Model Context Protocol",
   "type": "module",
-  "bin": "./build/src/main.js",
+  "bin": {
+    "react-devtools-mcp": "build/src/main.js"
+  },
   "main": "./build/src/main.js",
   "scripts": {
     "clean": "node -e \"require('fs').rmSync('build', {recursive: true, force: true})\"",
@@ -32,7 +34,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/uxfreak/React-Devtools-MCP.git"
+    "url": "git+https://github.com/uxfreak/React-Devtools-MCP.git"
   },
   "bugs": {
     "url": "https://github.com/uxfreak/React-Devtools-MCP/issues"
