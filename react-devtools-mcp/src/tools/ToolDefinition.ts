@@ -1,4 +1,5 @@
-import type {zod} from '../third_party/index.js';
+import type {Page} from '../third_party/index.js';
+import {zod} from '../third_party/index.js';
 
 export interface ToolDefinition<Schema extends zod.ZodRawShape = zod.ZodRawShape> {
   name: string;
@@ -18,6 +19,7 @@ export interface Request<Schema extends zod.ZodRawShape> {
 export interface Response {
   appendResponseLine(value: string): void;
   attachImage(value: {data: string; mimeType: string}): void;
+  setIncludePages(value: boolean): void;
 }
 
 export type Context = Readonly<{
@@ -33,6 +35,12 @@ export type Context = Readonly<{
   getComponentById(id: string): Promise<ComponentDetails | null>;
   highlightComponent(id: string): Promise<{ok: boolean; message: string}>;
   takeSnapshot(verbose?: boolean): Promise<Snapshot | null>;
+  getSelectedPage(): Page;
+  getPages(): Page[];
+  getPageByIdx(idx: number): Page;
+  newPage(): Promise<Page>;
+  closePage(pageIdx: number): Promise<void>;
+  selectPage(page: Page): void;
 }>;
 
 export interface ReactAttachResult {
@@ -140,3 +148,18 @@ export function defineTool<Schema extends zod.ZodRawShape>(
 ) {
   return definition;
 }
+
+export const CLOSE_PAGE_ERROR = 'Cannot close the last open page';
+
+export const timeoutSchema = {
+  timeout: zod
+    .number()
+    .int()
+    .optional()
+    .describe(
+      'Maximum wait time in milliseconds. If set to 0, the default timeout will be used.',
+    )
+    .transform(value => {
+      return value && value <= 0 ? undefined : value;
+    }),
+};

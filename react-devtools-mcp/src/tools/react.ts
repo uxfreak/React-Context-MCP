@@ -1,5 +1,12 @@
 import {zod} from '../third_party/index.js';
 import {defineTool} from './ToolDefinition.js';
+import {
+  listPages,
+  selectPage,
+  closePage,
+  newPage,
+  navigatePage,
+} from './pages.js';
 
 export const ensureReactAttached = defineTool({
   name: 'ensure_react_attached',
@@ -1588,6 +1595,13 @@ export const testCdpExtractFiber = defineTool({
 
 // Production tools only - debug and test tools excluded
 export const tools = [
+  // Page management tools
+  listPages,
+  selectPage,
+  closePage,
+  newPage,
+  navigatePage,
+  // React DevTools tools
   ensureReactAttached,
   listReactRoots,
   listComponents,

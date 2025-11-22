@@ -69,7 +69,16 @@ async function main() {
           const ctx = await getContext();
           const response = new McpResponse();
           await tool.handler({params}, response, ctx);
-          return response.toCallToolResult() as CallToolResult;
+
+          // If the tool wants to include pages, update the snapshot
+          if (response.getIncludePages()) {
+            await ctx.createPagesSnapshot();
+          }
+
+          return response.toCallToolResult(
+            ctx.getPages(),
+            ctx.getSelectedPage(),
+          ) as CallToolResult;
         } finally {
           release();
         }
