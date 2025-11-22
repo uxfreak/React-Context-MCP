@@ -1327,19 +1327,72 @@ export const testCdpExtractFiber = defineTool({
         return;
       }
 
-      // Step 3: Extract React fiber using Runtime.callFunctionOn
+      // Step 3: Extract React fiber and navigate to component using Runtime.callFunctionOn
       const fiberResult = await client.send('Runtime.callFunctionOn', {
         objectId: object.objectId,
         functionDeclaration: `function() {
           const keys = Object.keys(this);
           const fiberKey = keys.find(k => k.startsWith('__reactFiber$'));
           if (!fiberKey) return { error: 'No React fiber found' };
-          const fiber = this[fiberKey];
-          return {
-            fiberKey,
+
+          let fiber = this[fiberKey];
+          const hostFiber = {
             tag: fiber.tag,
-            type: typeof fiber.type === 'function' ? fiber.type.name : fiber.type,
-            elementType: typeof fiber.elementType === 'function' ? fiber.elementType.name : fiber.elementType,
+            type: typeof fiber.type === 'function' ? fiber.type.name : String(fiber.type),
+          };
+
+          // Navigate up the fiber tree and collect ALL components
+          // tag 0 = FunctionComponent, tag 1 = ClassComponent
+          // tag 5 = HostComponent (DOM element like 'button', 'div')
+          // tag 11 = ForwardRef or Memo wrapper
+          let current = fiber;
+          const path = [];
+          const components = [];
+
+          while (current) {
+            const typeName = typeof current.type === 'function' ? current.type.name : String(current.type || 'unknown');
+            path.push({
+              tag: current.tag,
+              type: typeName
+            });
+
+            // Collect all React components (FunctionComponent, ClassComponent, ForwardRef/Memo)
+            if (current.tag === 0 || current.tag === 1 || current.tag === 11) {
+              const componentName = typeof current.type === 'function' ? current.type.name : String(current.type || 'Unknown');
+              const tagNames = {
+                0: 'FunctionComponent',
+                1: 'ClassComponent',
+                11: 'ForwardRef'
+              };
+
+              components.push({
+                tag: current.tag,
+                tagName: tagNames[current.tag] || 'Unknown',
+                name: componentName,
+                displayName: current.type?.displayName || null,
+                // Try to get source location
+                source: current._debugSource ? {
+                  fileName: String(current._debugSource.fileName || ''),
+                  lineNumber: Number(current._debugSource.lineNumber) || 0,
+                  columnNumber: Number(current._debugSource.columnNumber) || 0
+                } : null
+              });
+            }
+
+            current = current.return;
+
+            // Safety: don't traverse more than 50 levels
+            if (path.length > 50) break;
+          }
+
+          return {
+            fiberKey: fiberKey,
+            hostFiber: hostFiber,
+            components: components,  // Array of ALL components from closest to farthest
+            immediateParent: components[0] || null,  // Closest component
+            rootComponent: components[components.length - 1] || null,  // Farthest component
+            traversalPath: path,
+            traversalDepth: path.length
           };
         }`,
         returnByValue: true,
@@ -1347,10 +1400,10 @@ export const testCdpExtractFiber = defineTool({
 
       response.appendResponseLine(JSON.stringify({
         success: true,
-        message: 'Successfully extracted React fiber from DOM element',
+        message: 'Successfully navigated fiber tree to find React component',
         backendNodeId,
         objectId: object.objectId,
-        fiber: fiberResult.result.value,
+        result: fiberResult.result.value,
       }, null, 2));
     } catch (error: any) {
       response.appendResponseLine(JSON.stringify({
