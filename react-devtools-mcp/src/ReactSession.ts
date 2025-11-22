@@ -282,47 +282,85 @@ export class ReactSession {
   async takeSnapshot(verbose = false) {
     await this.ensureBackendInjected();
 
-    // Step 1: Get basic accessibility tree
-    const axTree = await this.#page.accessibility.snapshot({
-      interestingOnly: !verbose,
-    });
+    // Use CDP to get full accessibility tree with backendDOMNodeId
+    const client = (this.#page as any)._client();
+    await client.send('Accessibility.enable');
+    const cdpAxTree = await client.send('Accessibility.getFullAXTree');
 
-    if (!axTree) {
+    if (!cdpAxTree || !cdpAxTree.nodes || cdpAxTree.nodes.length === 0) {
       return null;
     }
 
     const snapshotId = Date.now().toString();
     let uidCounter = 0;
 
-    // Process a11y tree and add UIDs
+    // CDP returns flat array - need to build hierarchy
+    // First, create a map of all nodes by nodeId
+    const nodeMap = new Map();
+    const childrenMap = new Map(); // parentId -> childIds
+
+    for (const node of cdpAxTree.nodes) {
+      const nodeId = node.nodeId;
+      nodeMap.set(nodeId, node);
+
+      // Track children relationships
+      if (node.childIds && node.childIds.length > 0) {
+        childrenMap.set(nodeId, node.childIds);
+      }
+    }
+
+    // Process node and build hierarchy
     const processNode = (node: any): any => {
+      // Filter by interestingOnly if needed
+      if (!verbose && node.ignored) {
+        return null;
+      }
+
       const uid = `${snapshotId}_${uidCounter++}`;
       const processed: any = {
-        role: node.role,
-        name: node.name,
+        role: node.role?.value,
+        name: node.name?.value,
         uid,
+        backendDOMNodeId: node.backendDOMNodeId, // Add this!
       };
 
       // Copy a11y properties
-      if (node.value !== undefined) processed.value = node.value;
-      if (node.description !== undefined) processed.description = node.description;
-      if (node.keyshortcuts !== undefined) processed.keyshortcuts = node.keyshortcuts;
-      if (node.roledescription !== undefined) processed.roledescription = node.roledescription;
-      if (node.disabled !== undefined) processed.disabled = node.disabled;
-      if (node.expanded !== undefined) processed.expanded = node.expanded;
-      if (node.focused !== undefined) processed.focused = node.focused;
-      if (node.checked !== undefined) processed.checked = node.checked;
-      if (node.pressed !== undefined) processed.pressed = node.pressed;
+      if (node.value?.value !== undefined) processed.value = node.value.value;
+      if (node.description?.value !== undefined) processed.description = node.description.value;
+      if (node.keyshortcuts?.value !== undefined) processed.keyshortcuts = node.keyshortcuts.value;
+      if (node.roledescription?.value !== undefined) processed.roledescription = node.roledescription.value;
+      if (node.disabled?.value !== undefined) processed.disabled = node.disabled.value;
+      if (node.expanded?.value !== undefined) processed.expanded = node.expanded.value;
+      if (node.focused?.value !== undefined) processed.focused = node.focused.value;
+      if (node.checked?.value !== undefined) processed.checked = node.checked.value;
+      if (node.pressed?.value !== undefined) processed.pressed = node.pressed.value;
 
       // Process children recursively
-      if (node.children && node.children.length > 0) {
-        processed.children = node.children.map((child: any) => processNode(child));
+      const childIds = childrenMap.get(node.nodeId);
+      if (childIds && childIds.length > 0) {
+        const children = childIds
+          .map((childId: string) => {
+            const childNode = nodeMap.get(childId);
+            return childNode ? processNode(childNode) : null;
+          })
+          .filter((child: any) => child !== null);
+
+        if (children.length > 0) {
+          processed.children = children;
+        }
       }
 
       return processed;
     };
 
-    const root = processNode(axTree);
+    // Find root node (no parent)
+    const rootNode = cdpAxTree.nodes[0]; // First node is usually root
+
+    if (!rootNode) {
+      return null;
+    }
+
+    const root = processNode(rootNode);
 
     return {
       root,
