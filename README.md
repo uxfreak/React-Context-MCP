@@ -54,7 +54,7 @@ When you ask your AI *"Find the Sign up button and show me the component"*, here
 
 ### Step 1: Your AI Takes a Snapshot
 ```typescript
-take_snapshot({ verbose: false })
+take_snapshot({ verbose: true })
 ```
 
 Returns the page structure as an accessibility tree with **backendDOMNodeId** for every element:
@@ -114,31 +114,44 @@ Uses the DOM node ID to traverse the React fiber tree and returns the **complete
 
 ```json
 {
-  "success": true,
-  "component": {
-    "name": "Button",
-    "type": "ForwardRef",
-    "source": {
-      "fileName": "src/design-system/atoms/Button/Button.tsx",
-      "lineNumber": 42,
-      "columnNumber": 8
-    },
-    "props": {
-      "variant": "primary",
-      "size": "large",
-      "children": "Sign up"
-    },
-    "owners": [
-      {
-        "name": "OnboardingScreen",
-        "source": { "fileName": "src/screens/OnboardingScreen.tsx", "lineNumber": 222 }
-      },
-      {
-        "name": "App",
-        "source": { "fileName": "src/App.tsx", "lineNumber": 15 }
+  "name": "Button",
+  "type": "ForwardRef",
+  "source": {
+    "fileName": "src/design-system/atoms/Button/Button.tsx",
+    "lineNumber": 42,
+    "columnNumber": 8
+  },
+  "props": {
+    "variant": "primary",
+    "size": "large",
+    "fullWidth": true,
+    "disabled": false,
+    "children": "Sign up"
+  },
+  "state": {
+    "memoizedState": false,
+    "baseState": false
+  },
+  "owners": [
+    {
+      "name": "OnboardingScreen",
+      "type": "FunctionComponent",
+      "source": {
+        "fileName": "src/screens/OnboardingScreen.tsx",
+        "lineNumber": 222,
+        "columnNumber": 12
       }
-    ]
-  }
+    },
+    {
+      "name": "App",
+      "type": "FunctionComponent",
+      "source": {
+        "fileName": "src/App.tsx",
+        "lineNumber": 15,
+        "columnNumber": 3
+      }
+    }
+  ]
 }
 ```
 
@@ -191,6 +204,8 @@ take_snapshot()
 ```json
 {
   "role": "form",
+  "name": "Sign up form",
+  "backendDOMNodeId": 31,
   "children": [
     {
       "role": "textbox",
@@ -204,23 +219,41 @@ take_snapshot()
 **AI checks the component:**
 ```typescript
 get_react_component_from_backend_node_id(52)
-// Response:
+```
+
+**Response:**
+```json
 {
-  "component": "TextField",
-  "source": "src/design-system/forms/TextField.tsx:28"  // ✅ Design system!
+  "name": "TextField",
+  "type": "ForwardRef",
+  "source": {
+    "fileName": "src/design-system/components/atoms/TextField/TextField.tsx",
+    "lineNumber": 28,
+    "columnNumber": 8
+  },
+  "props": {
+    "label": "Email address",
+    "type": "email",
+    "placeholder": "you@example.com",
+    "autoFocus": true,
+    "required": true
+  }
 }
+// ✅ Design system component verified!
 ```
 
 **Screen 2: Personal Info**
 ```typescript
 navigate_page({ url: "http://localhost:3000/signup/personal-info" })
-take_snapshot()
+take_snapshot({ verbose: true })
 ```
 
 **Snapshot returns:**
 ```json
 {
   "role": "form",
+  "name": "Personal information",
+  "backendDOMNodeId": 60,
   "children": [
     {
       "role": "textbox",
@@ -243,9 +276,14 @@ take_snapshot()
 
 **AI checks each:**
 ```typescript
-get_react_component_from_backend_node_id(67)  // ✅ Design system
-get_react_component_from_backend_node_id(71)  // ✅ Design system
-get_react_component_from_backend_node_id(75)  // ❌ Legacy! "src/components/Input.tsx"
+get_react_component_from_backend_node_id(67)
+// Response: { name: "TextField", source: "src/design-system/..." } ✅
+
+get_react_component_from_backend_node_id(71)
+// Response: { name: "TextField", source: "src/design-system/..." } ✅
+
+get_react_component_from_backend_node_id(75)
+// Response: { name: "Input", source: "src/components/Input.tsx" } ❌ Legacy!
 ```
 
 **Result:** Analyzed 30+ TextFields across 6 screens. Found 2 legacy components still using `src/components/Input.tsx` instead of the design system.
