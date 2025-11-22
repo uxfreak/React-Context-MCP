@@ -6,7 +6,10 @@ MCP server that exposes React DevTools capabilities for inspecting React applica
 
 - **React Backend Injection** - Automatically injects React DevTools backend hook into pages
 - **Component Tree Inspection** - List and inspect React fiber tree with props, state, and source locations
-- **Accessibility Tree Snapshot** - Capture page structure with text content for finding UI elements
+- **Accessibility Tree Snapshot** - Capture page structure with text content and CDP backendDOMNodeId for every element
+- **Two Element-to-Component Mapping Methods**:
+  - **CDP backendDOMNodeId** (Recommended) - Fast, deterministic direct element access via Chrome DevTools Protocol
+  - **ARIA Selectors** (Legacy) - Cross-session compatible element searching via accessibility tree
 - **Component Highlighting** - Visual highlighting of React components in the browser
 
 ## Installation
@@ -240,7 +243,7 @@ Capture accessibility tree snapshot to find text and UI elements on the page.
 
 ### 8. `get_react_component_from_snapshot`
 
-**NEW!** Get complete React component information for an element found in the snapshot. Returns component name, type, props, state, source location, and owner hierarchy.
+Get complete React component information for an element found in the snapshot. Returns component name, type, props, state, source location, and owner hierarchy.
 
 **Uses ARIA selectors** built on the browser's accessibility tree for reliable element finding. This approach is more robust than manual DOM traversal and successfully handles headings, images, buttons, and most UI elements.
 
@@ -265,9 +268,83 @@ Capture accessibility tree snapshot to find text and UI elements on the page.
 }
 ```
 
+### 9. `get_react_component_from_backend_node_id`
+
+**NEW! Faster and more deterministic alternative to ARIA selectors.**
+
+Get React component information using CDP `backendDOMNodeId` from the accessibility tree snapshot. This approach provides direct DOM element access without searching.
+
+**Use this when:**
+- You have a `backendDOMNodeId` from `take_snapshot` (snapshots now include this for every element)
+- You need faster, more deterministic element lookup
+- You're making multiple queries in the same session
+
+**Arguments:**
+- `backendDOMNodeId` (number) - Backend DOM node ID from snapshot's `backendDOMNodeId` field
+
+**Example:**
+```json
+{"jsonrpc":"2.0","id":"8","method":"tools/call","params":{"name":"get_react_component_from_backend_node_id","arguments":{"backendDOMNodeId":48}}}
+```
+
+**Response:** (Same format as `get_react_component_from_snapshot`)
+
+**Important:** The `backendDOMNodeId` is only valid within the same browser session. Always use `take_snapshot` and `get_react_component_from_backend_node_id` in the same MCP session (same JSON-RPC connection).
+
 ## Common Workflows
 
-### Finding Source Location of Text on Page
+### Finding Source Location of Text on Page (CDP backendDOMNodeId Method)
+
+**Recommended approach:** Use CDP backendDOMNodeId for faster, more deterministic lookups.
+
+**Single MCP session with both snapshot and component lookup:**
+
+```bash
+cat <<'EOF' > find-component.jsonl
+{"jsonrpc":"2.0","id":"init","method":"initialize","params":{"protocolVersion":"2024-12-19","capabilities":{},"clientInfo":{"name":"cli","version":"0.0.0"}}}
+{"jsonrpc":"2.0","id":"1","method":"tools/call","params":{"name":"take_snapshot","arguments":{"verbose":true}}}
+{"jsonrpc":"2.0","id":"2","method":"tools/call","params":{"name":"get_react_component_from_backend_node_id","arguments":{"backendDOMNodeId":48}}}
+EOF
+
+(cat find-component.jsonl; sleep 10) | TARGET_URL=http://localhost:3000 node build/src/main.js --isolated --headless
+```
+
+**Step 1:** The snapshot returns the accessibility tree with `backendDOMNodeId` for each element:
+```json
+{
+  "role": "button",
+  "name": "Sign up",
+  "uid": "1763809431664_38",
+  "backendDOMNodeId": 48
+}
+```
+
+**Step 2:** Use the `backendDOMNodeId` to get the React component (happens in same session automatically)
+
+**Result:**
+```json
+{
+  "success": true,
+  "component": {
+    "name": "Button",
+    "type": "ForwardRef",
+    "source": {
+      "fileName": "src/components/Button.tsx",
+      "lineNumber": 42,
+      "columnNumber": 8
+    },
+    "props": {"variant": "primary", "children": "Sign up"},
+    "owners": [
+      {"name": "OnboardingScreen", "source": "src/pages/Onboarding.tsx:136"},
+      {"name": "App", "source": "src/App.tsx:102"}
+    ]
+  }
+}
+```
+
+### Finding Source Location of Text on Page (ARIA Selector Method)
+
+**Legacy approach:** Use ARIA selectors when you need cross-session compatibility.
 
 This workflow demonstrates how to find any visible text (e.g., "Sign up") and trace it back to the React component and source file.
 
@@ -388,26 +465,82 @@ Source information is extracted from `data-inspector-*` attributes added by Babe
 
 ### Accessibility Tree Snapshot
 
-The `take_snapshot` tool:
-1. Calls Puppeteer's `page.accessibility.snapshot()` API
+The `take_snapshot` tool now supports **two approaches** for element-to-component mapping:
+
+**CDP Approach (Recommended):**
+1. Calls Chrome DevTools Protocol `Accessibility.getFullAXTree()`
+2. Extracts `backendDOMNodeId` for every element in the tree
+3. Generates unique UIDs for each node
+4. Returns hierarchical tree with roles, names, text content, **and backendDOMNodeId**
+
+**Legacy Puppeteer Approach:**
+1. Calls Puppeteer's `page.accessibility.snapshot()` API (deprecated)
 2. Generates unique UIDs for each node
-3. Returns hierarchical tree with roles, names, and text content
-4. Enables finding any visible text on the page
+3. Returns hierarchical tree with roles, names, and text content (no backendDOMNodeId)
 
-### ARIA Selector Mapping
+### Two Methods for Mapping Elements to React Components
 
-The `get_react_component_from_snapshot` tool uses ARIA selectors to map accessibility tree elements to React components:
+#### Method 1: CDP backendDOMNodeId (Recommended)
+
+**Tool:** `get_react_component_from_backend_node_id`
+
+**How it works:**
+1. Get `backendDOMNodeId` from snapshot (included for every element)
+2. Use CDP `DOM.resolveNode({backendNodeId})` to get RemoteObject reference
+3. Use CDP `Runtime.callFunctionOn()` to execute JavaScript in element context
+4. Extract React fiber from `element.__reactFiber$...` property
+5. Walk fiber tree to collect all components (FunctionComponent, ClassComponent, ForwardRef)
+6. Return complete component hierarchy with source locations
+
+**Benefits:**
+- ✅ **Faster** - Direct element access, no searching
+- ✅ **More deterministic** - Unique numeric ID per element
+- ✅ **Full component hierarchy** - Returns all components from element to root
+- ✅ **Precise source locations** - File, line, and column for each component
+
+**Important constraint - Session staleness:**
+
+BackendDOMNodeIds are **only valid within the same browser session**. Causes of staleness:
+
+1. **Different browser sessions** (95% probability) - Each `--isolated --headless` run creates a new browser instance. IDs from one run cannot be used in another.
+2. **Page navigation/reload** (80% probability) - DOM tree is rebuilt with new IDs.
+3. **DOM mutations** (20% probability) - React re-renders may invalidate IDs.
+4. **Timing/race conditions** (15% probability) - Async updates between getting and using ID.
+
+**Solution:** Always use `take_snapshot` and `get_react_component_from_backend_node_id` in the **same MCP session** (same JSON-RPC connection to the same browser instance).
+
+#### Method 2: ARIA Selectors (Legacy)
+
+**Tool:** `get_react_component_from_snapshot`
+
+**How it works:**
 1. Takes `role` and `name` from snapshot (e.g., `{role: "button", name: "Sign up"}`)
 2. Uses Puppeteer's ARIA selector syntax: `aria/Name[role="button"]`
 3. Finds the DOM element via browser's built-in accessibility tree
 4. Extracts React fiber and component data from `element.__reactFiber$...` keys
 5. Returns complete component information (name, type, props, state, source, owners)
 
-**Benefits over manual DOM traversal:**
-- Built on browser's native accessibility tree (same as screen readers)
-- Handles dynamic content and shadow DOM
-- More reliable than text searching or XPath queries
-- Successfully tested with heading, image, and button elements
+**Benefits:**
+- ✅ Built on browser's native accessibility tree (same as screen readers)
+- ✅ Handles dynamic content and shadow DOM
+- ✅ More reliable than text searching or XPath queries
+- ✅ No session staleness issues (searches on demand)
+
+**Limitations:**
+- ⚠️ Slower (requires searching)
+- ⚠️ Less deterministic (multiple elements may match same role+name)
+- ⚠️ Requires unique role+name combinations
+
+**When to use each method:**
+
+| Use Case | Recommended Method |
+|----------|-------------------|
+| Single session, multiple element queries | CDP backendDOMNodeId |
+| Cross-session element tracking | ARIA selectors |
+| Automated testing (fresh browser per test) | ARIA selectors |
+| Interactive debugging (persistent session) | CDP backendDOMNodeId |
+| Need guaranteed uniqueness | CDP backendDOMNodeId |
+| Non-unique element names | CDP backendDOMNodeId |
 
 ## Environment Variables
 

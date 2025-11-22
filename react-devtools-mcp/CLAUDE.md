@@ -29,13 +29,15 @@ React DevTools MCP (Model Context Protocol) server for inspecting React applicat
   - Replaced Puppeteer accessibility API with CDP Accessibility.getFullAXTree
   - Added backendDOMNodeId to every element in snapshot
   - Rebuilt hierarchy from flat CDP node array
-  - **Status**: Implementation complete, testing blocked on dev server
+  - **Testing Results**: ✅ PASSED
+    - Heading test: Text component at OnboardingScreen.tsx:222:12
+    - Button test: Button component at OnboardingScreen.tsx:361:10
+    - Both returned full owner chains and component metadata
 
 ### 🔄 In Progress
-- Testing Issue #3 (need dev server at localhost:5174)
+- **Issue #4**: Add integration test comparing CDP vs ARIA approaches
 
 ### 📋 Pending
-- Issue #4: Add integration test comparing CDP vs ARIA approaches
 - Issue #5: Handle edge cases and error scenarios
 - Issue #6: Documentation for CDP vs ARIA approaches
 - Issue #7: Update README with project overview
