@@ -1154,6 +1154,10 @@ React Context MCP extracts source locations from `data-inspector-*` DOM attribut
 
 Add to `vite.config.ts`:
 
+```bash
+npm install --save-dev @react-dev-inspector/babel-plugin
+```
+
 ```typescript
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
@@ -1162,28 +1166,92 @@ export default defineConfig({
   plugins: [
     react({
       babel: {
-        plugins: ['@babel/plugin-transform-react-jsx-development']
+        plugins: [
+          ['@react-dev-inspector/babel-plugin', {
+            excludes: ['node_modules']
+          }]
+        ]
       }
     })
   ]
 })
 ```
 
-#### Next.js / Create React App
+#### Next.js
 
-✅ **Automatically included in development mode.** No configuration needed!
+Install the plugin and add to `next.config.js`:
 
-The plugin is built into Next.js and CRA's development builds.
+```bash
+npm install --save-dev @react-dev-inspector/babel-plugin
+```
+
+```javascript
+module.exports = {
+  // ... other config
+  compiler: {
+    // Note: This only works for Next.js <13 with SWC disabled
+    // For Next.js 13+ with SWC, you may need additional configuration
+  },
+  webpack: (config) => {
+    // Add babel-loader rule for the plugin
+    config.module.rules.push({
+      test: /\.(tsx|ts|jsx|js)$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          plugins: [
+            ['@react-dev-inspector/babel-plugin', {
+              excludes: ['node_modules']
+            }]
+          ]
+        }
+      }
+    })
+    return config
+  }
+}
+```
+
+#### Create React App
+
+Install and configure in `.babelrc` or `babel.config.js`:
+
+```bash
+npm install --save-dev @react-dev-inspector/babel-plugin
+```
+
+Create `babel.config.js`:
+
+```javascript
+module.exports = {
+  presets: ['react-app'],
+  plugins: [
+    process.env.NODE_ENV !== 'production' && [
+      '@react-dev-inspector/babel-plugin',
+      { excludes: ['node_modules'] }
+    ]
+  ].filter(Boolean)
+}
+```
 
 #### Manual Babel Configuration
 
+```bash
+npm install --save-dev @react-dev-inspector/babel-plugin
+```
+
 Add to `.babelrc` or `babel.config.js`:
 
-```json
+```javascript
 {
   "env": {
     "development": {
-      "plugins": ["@babel/plugin-transform-react-jsx-development"]
+      "plugins": [
+        ["@react-dev-inspector/babel-plugin", {
+          "excludes": ["node_modules"]
+        }]
+      ]
     }
   }
 }
