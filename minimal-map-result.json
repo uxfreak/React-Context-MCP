@@ -1,0 +1,1027 @@
+{
+  "root": {
+    "role": "RootWebArea",
+    "name": "Flyra — Dramatic Neon",
+    "uid": "1764272826821_0",
+    "backendDOMNodeId": 2,
+    "children": [
+      {
+        "role": "none",
+        "uid": "1764272826821_1",
+        "backendDOMNodeId": 7,
+        "children": [
+          {
+            "role": "none",
+            "uid": "1764272826821_2",
+            "backendDOMNodeId": 21,
+            "children": [
+              {
+                "role": "generic",
+                "name": "",
+                "uid": "1764272826821_3",
+                "backendDOMNodeId": 22,
+                "children": [
+                  {
+                    "role": "generic",
+                    "name": "",
+                    "uid": "1764272826821_4",
+                    "backendDOMNodeId": 23,
+                    "react": {
+                      "name": "AnimatedBackground",
+                      "type": "FunctionComponent",
+                      "source": {
+                        "fileName": "src/App.tsx",
+                        "lineNumber": 100,
+                        "columnNumber": 16
+                      }
+                    }
+                  },
+                  {
+                    "role": "generic",
+                    "name": "",
+                    "uid": "1764272826821_5",
+                    "backendDOMNodeId": 24,
+                    "children": [
+                      {
+                        "role": "generic",
+                        "name": "",
+                        "uid": "1764272826821_6",
+                        "backendDOMNodeId": 25,
+                        "react": {
+                          "name": "OnboardingPage",
+                          "type": "FunctionComponent",
+                          "source": {
+                            "fileName": "src/App.tsx",
+                            "lineNumber": 104,
+                            "columnNumber": 47
+                          }
+                        }
+                      }
+                    ],
+                    "react": {
+                      "name": "OnboardingPage",
+                      "type": "FunctionComponent",
+                      "source": {
+                        "fileName": "src/App.tsx",
+                        "lineNumber": 104,
+                        "columnNumber": 47
+                      }
+                    }
+                  },
+                  {
+                    "role": "generic",
+                    "name": "",
+                    "uid": "1764272826821_7",
+                    "backendDOMNodeId": 26,
+                    "children": [
+                      {
+                        "role": "generic",
+                        "name": "",
+                        "uid": "1764272826821_8",
+                        "backendDOMNodeId": 5,
+                        "react": {
+                          "name": "motion.div",
+                          "type": "ForwardRef",
+                          "source": {
+                            "fileName": "src/components/BottomSheet/BottomSheet.tsx",
+                            "lineNumber": 137,
+                            "columnNumber": 6
+                          }
+                        }
+                      },
+                      {
+                        "role": "generic",
+                        "name": "",
+                        "uid": "1764272826821_9",
+                        "backendDOMNodeId": 27,
+                        "children": [
+                          {
+                            "role": "generic",
+                            "name": "",
+                            "uid": "1764272826821_10",
+                            "backendDOMNodeId": 28,
+                            "children": [
+                              {
+                                "role": "generic",
+                                "name": "",
+                                "uid": "1764272826821_11",
+                                "backendDOMNodeId": 29,
+                                "react": {
+                                  "name": "GradientBorder",
+                                  "type": "FunctionComponent",
+                                  "source": {
+                                    "fileName": "src/components/BottomSheet/BottomSheet.tsx",
+                                    "lineNumber": 178,
+                                    "columnNumber": 6
+                                  }
+                                }
+                              },
+                              {
+                                "role": "generic",
+                                "name": "",
+                                "uid": "1764272826821_12",
+                                "backendDOMNodeId": 30,
+                                "children": [
+                                  {
+                                    "role": "generic",
+                                    "name": "",
+                                    "uid": "1764272826821_13",
+                                    "backendDOMNodeId": 31,
+                                    "children": [
+                                      {
+                                        "role": "button",
+                                        "name": "",
+                                        "uid": "1764272826821_14",
+                                        "backendDOMNodeId": 32,
+                                        "react": {
+                                          "name": "GradientBorder",
+                                          "type": "FunctionComponent",
+                                          "source": {
+                                            "fileName": "src/components/BottomSheet/BottomSheet.tsx",
+                                            "lineNumber": 178,
+                                            "columnNumber": 6
+                                          }
+                                        }
+                                      }
+                                    ],
+                                    "react": {
+                                      "name": "GradientBorder",
+                                      "type": "FunctionComponent",
+                                      "source": {
+                                        "fileName": "src/components/BottomSheet/BottomSheet.tsx",
+                                        "lineNumber": 178,
+                                        "columnNumber": 6
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "role": "generic",
+                                    "name": "",
+                                    "uid": "1764272826821_15",
+                                    "backendDOMNodeId": 36,
+                                    "children": [
+                                      {
+                                        "role": "none",
+                                        "uid": "1764272826821_16",
+                                        "backendDOMNodeId": 37,
+                                        "children": [
+                                          {
+                                            "role": "none",
+                                            "uid": "1764272826821_17",
+                                            "backendDOMNodeId": 38,
+                                            "children": [
+                                              {
+                                                "role": "heading",
+                                                "name": "Install Flyra",
+                                                "uid": "1764272826821_18",
+                                                "backendDOMNodeId": 39,
+                                                "children": [
+                                                  {
+                                                    "role": "StaticText",
+                                                    "name": "Install Flyra",
+                                                    "uid": "1764272826821_19",
+                                                    "backendDOMNodeId": 81,
+                                                    "children": [
+                                                      {
+                                                        "role": "InlineTextBox",
+                                                        "name": "Install Flyra",
+                                                        "uid": "1764272826821_20"
+                                                      }
+                                                    ]
+                                                  }
+                                                ],
+                                                "react": {
+                                                  "name": "Typography",
+                                                  "type": "FunctionComponent",
+                                                  "source": {
+                                                    "fileName": "src/components/PWAInstallPrompt/PWAInstallPrompt.tsx",
+                                                    "lineNumber": 103,
+                                                    "columnNumber": 10
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                "role": "paragraph",
+                                                "name": "",
+                                                "uid": "1764272826821_21",
+                                                "backendDOMNodeId": 40,
+                                                "children": [
+                                                  {
+                                                    "role": "StaticText",
+                                                    "name": "Faster access, smoother experience, and a more app‑like feel.",
+                                                    "uid": "1764272826821_22",
+                                                    "backendDOMNodeId": 82,
+                                                    "children": [
+                                                      {
+                                                        "role": "InlineTextBox",
+                                                        "name": "Faster access, smoother experience, and a more app‑like feel.",
+                                                        "uid": "1764272826821_23"
+                                                      }
+                                                    ]
+                                                  }
+                                                ],
+                                                "react": {
+                                                  "name": "Typography",
+                                                  "type": "FunctionComponent",
+                                                  "source": {
+                                                    "fileName": "src/components/PWAInstallPrompt/PWAInstallPrompt.tsx",
+                                                    "lineNumber": 104,
+                                                    "columnNumber": 10
+                                                  }
+                                                }
+                                              }
+                                            ],
+                                            "react": {
+                                              "name": "GradientBorder",
+                                              "type": "FunctionComponent",
+                                              "source": {
+                                                "fileName": "src/components/BottomSheet/BottomSheet.tsx",
+                                                "lineNumber": 178,
+                                                "columnNumber": 6
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "role": "generic",
+                                            "name": "",
+                                            "uid": "1764272826821_24",
+                                            "backendDOMNodeId": 41,
+                                            "children": [
+                                              {
+                                                "role": "StaticText",
+                                                "name": "Ready to install on this device.",
+                                                "uid": "1764272826821_25",
+                                                "backendDOMNodeId": 83,
+                                                "children": [
+                                                  {
+                                                    "role": "InlineTextBox",
+                                                    "name": "Ready to install on this device.",
+                                                    "uid": "1764272826821_26"
+                                                  }
+                                                ]
+                                              }
+                                            ],
+                                            "react": {
+                                              "name": "Typography",
+                                              "type": "FunctionComponent",
+                                              "source": {
+                                                "fileName": "src/components/PWAInstallPrompt/PWAInstallPrompt.tsx",
+                                                "lineNumber": 112,
+                                                "columnNumber": 12
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "role": "button",
+                                            "name": "Install app",
+                                            "uid": "1764272826821_27",
+                                            "backendDOMNodeId": 42,
+                                            "children": [
+                                              {
+                                                "role": "none",
+                                                "uid": "1764272826821_28",
+                                                "backendDOMNodeId": 6,
+                                                "children": [
+                                                  {
+                                                    "role": "StaticText",
+                                                    "name": "Install app",
+                                                    "uid": "1764272826821_29",
+                                                    "backendDOMNodeId": 84,
+                                                    "children": [
+                                                      {
+                                                        "role": "InlineTextBox",
+                                                        "name": "Install app",
+                                                        "uid": "1764272826821_30"
+                                                      }
+                                                    ]
+                                                  }
+                                                ],
+                                                "react": {
+                                                  "name": "Button",
+                                                  "type": "FunctionComponent",
+                                                  "source": {
+                                                    "fileName": "src/components/PWAInstallPrompt/PWAInstallPrompt.tsx",
+                                                    "lineNumber": 115,
+                                                    "columnNumber": 12
+                                                  }
+                                                }
+                                              }
+                                            ],
+                                            "react": {
+                                              "name": "Button",
+                                              "type": "FunctionComponent",
+                                              "source": {
+                                                "fileName": "src/components/PWAInstallPrompt/PWAInstallPrompt.tsx",
+                                                "lineNumber": 115,
+                                                "columnNumber": 12
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "role": "button",
+                                            "name": "Not now",
+                                            "uid": "1764272826821_31",
+                                            "backendDOMNodeId": 43,
+                                            "children": [
+                                              {
+                                                "role": "StaticText",
+                                                "name": "Not now",
+                                                "uid": "1764272826821_32",
+                                                "backendDOMNodeId": 85,
+                                                "children": [
+                                                  {
+                                                    "role": "InlineTextBox",
+                                                    "name": "Not now",
+                                                    "uid": "1764272826821_33"
+                                                  }
+                                                ]
+                                              }
+                                            ],
+                                            "react": {
+                                              "name": "GradientBorder",
+                                              "type": "FunctionComponent",
+                                              "source": {
+                                                "fileName": "src/components/BottomSheet/BottomSheet.tsx",
+                                                "lineNumber": 178,
+                                                "columnNumber": 6
+                                              }
+                                            }
+                                          }
+                                        ],
+                                        "react": {
+                                          "name": "GradientBorder",
+                                          "type": "FunctionComponent",
+                                          "source": {
+                                            "fileName": "src/components/BottomSheet/BottomSheet.tsx",
+                                            "lineNumber": 178,
+                                            "columnNumber": 6
+                                          }
+                                        }
+                                      }
+                                    ],
+                                    "react": {
+                                      "name": "GradientBorder",
+                                      "type": "FunctionComponent",
+                                      "source": {
+                                        "fileName": "src/components/BottomSheet/BottomSheet.tsx",
+                                        "lineNumber": 178,
+                                        "columnNumber": 6
+                                      }
+                                    }
+                                  }
+                                ],
+                                "react": {
+                                  "name": "GradientBorder",
+                                  "type": "FunctionComponent",
+                                  "source": {
+                                    "fileName": "src/components/BottomSheet/BottomSheet.tsx",
+                                    "lineNumber": 178,
+                                    "columnNumber": 6
+                                  }
+                                }
+                              }
+                            ],
+                            "react": {
+                              "name": "GradientBorder",
+                              "type": "FunctionComponent",
+                              "source": {
+                                "fileName": "src/components/BottomSheet/BottomSheet.tsx",
+                                "lineNumber": 178,
+                                "columnNumber": 6
+                              }
+                            }
+                          }
+                        ],
+                        "react": {
+                          "name": "motion.div",
+                          "type": "ForwardRef",
+                          "source": {
+                            "fileName": "src/components/BottomSheet/BottomSheet.tsx",
+                            "lineNumber": 155,
+                            "columnNumber": 6
+                          }
+                        }
+                      },
+                      {
+                        "role": "generic",
+                        "name": "",
+                        "uid": "1764272826821_34",
+                        "backendDOMNodeId": 44,
+                        "children": [
+                          {
+                            "role": "generic",
+                            "name": "",
+                            "uid": "1764272826821_35",
+                            "backendDOMNodeId": 45,
+                            "react": {
+                              "name": "Box",
+                              "type": "ForwardRef",
+                              "source": {
+                                "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                "lineNumber": 155,
+                                "columnNumber": 6
+                              }
+                            }
+                          },
+                          {
+                            "role": "none",
+                            "uid": "1764272826821_36",
+                            "backendDOMNodeId": 46,
+                            "children": [
+                              {
+                                "role": "none",
+                                "uid": "1764272826821_37",
+                                "backendDOMNodeId": 47,
+                                "children": [
+                                  {
+                                    "role": "none",
+                                    "uid": "1764272826821_38",
+                                    "backendDOMNodeId": 48,
+                                    "children": [
+                                      {
+                                        "role": "heading",
+                                        "name": "Send instantly with USDC",
+                                        "uid": "1764272826821_39",
+                                        "backendDOMNodeId": 49,
+                                        "children": [
+                                          {
+                                            "role": "StaticText",
+                                            "name": "Send instantly with USDC",
+                                            "uid": "1764272826821_40",
+                                            "backendDOMNodeId": 86,
+                                            "children": [
+                                              {
+                                                "role": "InlineTextBox",
+                                                "name": "Send instantly with USDC",
+                                                "uid": "1764272826821_41"
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "react": {
+                                          "name": "Text",
+                                          "type": "ForwardRef",
+                                          "source": {
+                                            "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                            "lineNumber": 222,
+                                            "columnNumber": 12
+                                          }
+                                        }
+                                      }
+                                    ],
+                                    "react": {
+                                      "name": "motion.div",
+                                      "type": "ForwardRef",
+                                      "source": {
+                                        "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                        "lineNumber": 217,
+                                        "columnNumber": 10
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "role": "none",
+                                    "uid": "1764272826821_42",
+                                    "backendDOMNodeId": 50,
+                                    "children": [
+                                      {
+                                        "role": "paragraph",
+                                        "name": "",
+                                        "uid": "1764272826821_43",
+                                        "backendDOMNodeId": 51,
+                                        "children": [
+                                          {
+                                            "role": "StaticText",
+                                            "name": "Cheaper, faster transfers — no hidden fees, no delays.",
+                                            "uid": "1764272826821_44",
+                                            "backendDOMNodeId": 87,
+                                            "children": [
+                                              {
+                                                "role": "InlineTextBox",
+                                                "name": "Cheaper, faster transfers — no hidden fees, no delays.",
+                                                "uid": "1764272826821_45"
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "react": {
+                                          "name": "Text",
+                                          "type": "ForwardRef",
+                                          "source": {
+                                            "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                            "lineNumber": 232,
+                                            "columnNumber": 12
+                                          }
+                                        }
+                                      }
+                                    ],
+                                    "react": {
+                                      "name": "motion.div",
+                                      "type": "ForwardRef",
+                                      "source": {
+                                        "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                        "lineNumber": 227,
+                                        "columnNumber": 10
+                                      }
+                                    }
+                                  }
+                                ],
+                                "react": {
+                                  "name": "Box",
+                                  "type": "ForwardRef",
+                                  "source": {
+                                    "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                    "lineNumber": 216,
+                                    "columnNumber": 8
+                                  }
+                                }
+                              },
+                              {
+                                "role": "none",
+                                "uid": "1764272826821_46",
+                                "backendDOMNodeId": 52,
+                                "children": [
+                                  {
+                                    "role": "generic",
+                                    "name": "",
+                                    "uid": "1764272826821_47",
+                                    "backendDOMNodeId": 53,
+                                    "children": [
+                                      {
+                                        "role": "generic",
+                                        "name": "",
+                                        "uid": "1764272826821_48",
+                                        "backendDOMNodeId": 54,
+                                        "children": [
+                                          {
+                                            "role": "image",
+                                            "name": "Send instantly with USDC illustration",
+                                            "uid": "1764272826821_49",
+                                            "backendDOMNodeId": 55,
+                                            "react": {
+                                              "name": "Box",
+                                              "type": "ForwardRef",
+                                              "source": {
+                                                "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                                "lineNumber": 267,
+                                                "columnNumber": 14
+                                              }
+                                            }
+                                          }
+                                        ],
+                                        "react": {
+                                          "name": "Box",
+                                          "type": "ForwardRef",
+                                          "source": {
+                                            "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                            "lineNumber": 267,
+                                            "columnNumber": 14
+                                          }
+                                        }
+                                      }
+                                    ],
+                                    "react": {
+                                      "name": "motion.div",
+                                      "type": "ForwardRef",
+                                      "source": {
+                                        "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                        "lineNumber": 248,
+                                        "columnNumber": 10
+                                      }
+                                    }
+                                  }
+                                ],
+                                "react": {
+                                  "name": "Box",
+                                  "type": "ForwardRef",
+                                  "source": {
+                                    "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                    "lineNumber": 239,
+                                    "columnNumber": 8
+                                  }
+                                }
+                              }
+                            ],
+                            "react": {
+                              "name": "motion.div",
+                              "type": "ForwardRef",
+                              "source": {
+                                "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                "lineNumber": 167,
+                                "columnNumber": 6
+                              }
+                            }
+                          },
+                          {
+                            "role": "generic",
+                            "name": "",
+                            "uid": "1764272826821_50",
+                            "backendDOMNodeId": 56,
+                            "react": {
+                              "name": "Box",
+                              "type": "ForwardRef",
+                              "source": {
+                                "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                "lineNumber": 292,
+                                "columnNumber": 6
+                              }
+                            }
+                          },
+                          {
+                            "role": "generic",
+                            "name": "",
+                            "uid": "1764272826821_51",
+                            "backendDOMNodeId": 57,
+                            "children": [
+                              {
+                                "role": "generic",
+                                "name": "",
+                                "uid": "1764272826821_52",
+                                "backendDOMNodeId": 58,
+                                "children": [
+                                  {
+                                    "role": "generic",
+                                    "name": "",
+                                    "uid": "1764272826821_53",
+                                    "backendDOMNodeId": 59,
+                                    "react": {
+                                      "name": "ProgressBar",
+                                      "type": "FunctionComponent",
+                                      "source": {
+                                        "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                        "lineNumber": 323,
+                                        "columnNumber": 12
+                                      }
+                                    }
+                                  }
+                                ],
+                                "react": {
+                                  "name": "ProgressBar",
+                                  "type": "FunctionComponent",
+                                  "source": {
+                                    "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                    "lineNumber": 323,
+                                    "columnNumber": 12
+                                  }
+                                }
+                              },
+                              {
+                                "role": "generic",
+                                "name": "",
+                                "uid": "1764272826821_54",
+                                "backendDOMNodeId": 61,
+                                "children": [
+                                  {
+                                    "role": "generic",
+                                    "name": "",
+                                    "uid": "1764272826821_55",
+                                    "backendDOMNodeId": 62,
+                                    "react": {
+                                      "name": "ProgressBar",
+                                      "type": "FunctionComponent",
+                                      "source": {
+                                        "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                        "lineNumber": 323,
+                                        "columnNumber": 12
+                                      }
+                                    }
+                                  }
+                                ],
+                                "react": {
+                                  "name": "ProgressBar",
+                                  "type": "FunctionComponent",
+                                  "source": {
+                                    "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                    "lineNumber": 323,
+                                    "columnNumber": 12
+                                  }
+                                }
+                              },
+                              {
+                                "role": "generic",
+                                "name": "",
+                                "uid": "1764272826821_56",
+                                "backendDOMNodeId": 64,
+                                "children": [
+                                  {
+                                    "role": "generic",
+                                    "name": "",
+                                    "uid": "1764272826821_57",
+                                    "backendDOMNodeId": 65,
+                                    "react": {
+                                      "name": "ProgressBar",
+                                      "type": "FunctionComponent",
+                                      "source": {
+                                        "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                        "lineNumber": 323,
+                                        "columnNumber": 12
+                                      }
+                                    }
+                                  }
+                                ],
+                                "react": {
+                                  "name": "ProgressBar",
+                                  "type": "FunctionComponent",
+                                  "source": {
+                                    "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                    "lineNumber": 323,
+                                    "columnNumber": 12
+                                  }
+                                }
+                              },
+                              {
+                                "role": "generic",
+                                "name": "",
+                                "uid": "1764272826821_58",
+                                "backendDOMNodeId": 67,
+                                "children": [
+                                  {
+                                    "role": "generic",
+                                    "name": "",
+                                    "uid": "1764272826821_59",
+                                    "backendDOMNodeId": 68,
+                                    "react": {
+                                      "name": "ProgressBar",
+                                      "type": "FunctionComponent",
+                                      "source": {
+                                        "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                        "lineNumber": 323,
+                                        "columnNumber": 12
+                                      }
+                                    }
+                                  }
+                                ],
+                                "react": {
+                                  "name": "ProgressBar",
+                                  "type": "FunctionComponent",
+                                  "source": {
+                                    "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                    "lineNumber": 323,
+                                    "columnNumber": 12
+                                  }
+                                }
+                              }
+                            ],
+                            "react": {
+                              "name": "Box",
+                              "type": "ForwardRef",
+                              "source": {
+                                "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                "lineNumber": 309,
+                                "columnNumber": 6
+                              }
+                            }
+                          },
+                          {
+                            "role": "generic",
+                            "name": "",
+                            "uid": "1764272826821_60",
+                            "backendDOMNodeId": 70,
+                            "children": [
+                              {
+                                "role": "none",
+                                "uid": "1764272826821_61",
+                                "backendDOMNodeId": 71,
+                                "children": [
+                                  {
+                                    "role": "generic",
+                                    "name": "",
+                                    "uid": "1764272826821_62",
+                                    "backendDOMNodeId": 72,
+                                    "children": [
+                                      {
+                                        "role": "generic",
+                                        "name": "",
+                                        "uid": "1764272826821_63",
+                                        "backendDOMNodeId": 73,
+                                        "react": {
+                                          "name": "Button",
+                                          "type": "ForwardRef",
+                                          "source": {
+                                            "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                            "lineNumber": 361,
+                                            "columnNumber": 10
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "role": "button",
+                                        "name": "Sign up",
+                                        "uid": "1764272826821_64",
+                                        "backendDOMNodeId": 74,
+                                        "children": [
+                                          {
+                                            "role": "none",
+                                            "uid": "1764272826821_65",
+                                            "backendDOMNodeId": 75,
+                                            "children": [
+                                              {
+                                                "role": "StaticText",
+                                                "name": "Sign up",
+                                                "uid": "1764272826821_66",
+                                                "backendDOMNodeId": 88,
+                                                "children": [
+                                                  {
+                                                    "role": "InlineTextBox",
+                                                    "name": "Sign up",
+                                                    "uid": "1764272826821_67"
+                                                  }
+                                                ],
+                                                "react": {
+                                                  "name": "Button",
+                                                  "type": "ForwardRef",
+                                                  "source": {
+                                                    "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                                    "lineNumber": 361,
+                                                    "columnNumber": 10
+                                                  }
+                                                }
+                                              }
+                                            ],
+                                            "react": {
+                                              "name": "Button",
+                                              "type": "ForwardRef",
+                                              "source": {
+                                                "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                                "lineNumber": 361,
+                                                "columnNumber": 10
+                                              }
+                                            }
+                                          }
+                                        ],
+                                        "react": {
+                                          "name": "Button",
+                                          "type": "ForwardRef",
+                                          "source": {
+                                            "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                            "lineNumber": 361,
+                                            "columnNumber": 10
+                                          }
+                                        }
+                                      }
+                                    ],
+                                    "react": {
+                                      "name": "Button",
+                                      "type": "ForwardRef",
+                                      "source": {
+                                        "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                        "lineNumber": 361,
+                                        "columnNumber": 10
+                                      }
+                                    }
+                                  }
+                                ],
+                                "react": {
+                                  "name": "Box",
+                                  "type": "ForwardRef",
+                                  "source": {
+                                    "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                    "lineNumber": 357,
+                                    "columnNumber": 8
+                                  }
+                                }
+                              },
+                              {
+                                "role": "none",
+                                "uid": "1764272826821_68",
+                                "backendDOMNodeId": 76,
+                                "children": [
+                                  {
+                                    "role": "paragraph",
+                                    "name": "",
+                                    "uid": "1764272826821_69",
+                                    "backendDOMNodeId": 77,
+                                    "children": [
+                                      {
+                                        "role": "StaticText",
+                                        "name": "Already signed up?",
+                                        "uid": "1764272826821_70",
+                                        "backendDOMNodeId": 89,
+                                        "children": [
+                                          {
+                                            "role": "InlineTextBox",
+                                            "name": "Already signed up?",
+                                            "uid": "1764272826821_71"
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "react": {
+                                      "name": "Text",
+                                      "type": "ForwardRef",
+                                      "source": {
+                                        "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                        "lineNumber": 373,
+                                        "columnNumber": 10
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "role": "button",
+                                    "name": "Log in",
+                                    "uid": "1764272826821_72",
+                                    "backendDOMNodeId": 78,
+                                    "children": [
+                                      {
+                                        "role": "none",
+                                        "uid": "1764272826821_73",
+                                        "backendDOMNodeId": 79,
+                                        "children": [
+                                          {
+                                            "role": "StaticText",
+                                            "name": "Log in",
+                                            "uid": "1764272826821_74",
+                                            "backendDOMNodeId": 90,
+                                            "children": [
+                                              {
+                                                "role": "InlineTextBox",
+                                                "name": "Log in",
+                                                "uid": "1764272826821_75"
+                                              }
+                                            ],
+                                            "react": {
+                                              "name": "Button",
+                                              "type": "ForwardRef",
+                                              "source": {
+                                                "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                                "lineNumber": 376,
+                                                "columnNumber": 10
+                                              }
+                                            }
+                                          }
+                                        ],
+                                        "react": {
+                                          "name": "Button",
+                                          "type": "ForwardRef",
+                                          "source": {
+                                            "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                            "lineNumber": 376,
+                                            "columnNumber": 10
+                                          }
+                                        }
+                                      }
+                                    ],
+                                    "react": {
+                                      "name": "Button",
+                                      "type": "ForwardRef",
+                                      "source": {
+                                        "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                        "lineNumber": 376,
+                                        "columnNumber": 10
+                                      }
+                                    }
+                                  }
+                                ],
+                                "react": {
+                                  "name": "Box",
+                                  "type": "ForwardRef",
+                                  "source": {
+                                    "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                    "lineNumber": 372,
+                                    "columnNumber": 8
+                                  }
+                                }
+                              }
+                            ],
+                            "react": {
+                              "name": "Box",
+                              "type": "ForwardRef",
+                              "source": {
+                                "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                                "lineNumber": 349,
+                                "columnNumber": 6
+                              }
+                            }
+                          }
+                        ],
+                        "react": {
+                          "name": "Box",
+                          "type": "ForwardRef",
+                          "source": {
+                            "fileName": "src/design-system/components/organisms/OnboardingScreen/OnboardingScreen.tsx",
+                            "lineNumber": 138,
+                            "columnNumber": 4
+                          }
+                        }
+                      }
+                    ],
+                    "react": {
+                      "name": "OnboardingPage",
+                      "type": "FunctionComponent",
+                      "source": {
+                        "fileName": "src/App.tsx",
+                        "lineNumber": 104,
+                        "columnNumber": 47
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "snapshotId": "1764272826821"
+}

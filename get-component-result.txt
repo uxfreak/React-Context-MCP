@@ -1,0 +1,104 @@
+{
+  "success": true,
+  "component": {
+    "name": "Button",
+    "type": "FunctionComponent",
+    "props": {
+      "data-inspector-line": "115",
+      "data-inspector-column": "12",
+      "data-inspector-relative-path": "src/components/PWAInstallPrompt/PWAInstallPrompt.tsx",
+      "size": "large",
+      "onClick": {},
+      "data-function": "install-app-button",
+      "children": "Install app"
+    },
+    "state": null,
+    "source": {
+      "fileName": "src/components/PWAInstallPrompt/PWAInstallPrompt.tsx",
+      "lineNumber": 115,
+      "columnNumber": 12
+    },
+    "owners": [
+      {
+        "name": "GradientBorder",
+        "type": "FunctionComponent",
+        "source": {
+          "fileName": "src/components/BottomSheet/BottomSheet.tsx",
+          "lineNumber": 178,
+          "columnNumber": 6
+        }
+      },
+      {
+        "name": "motion.div",
+        "type": "ForwardRef",
+        "source": {
+          "fileName": "src/components/BottomSheet/BottomSheet.tsx",
+          "lineNumber": 155,
+          "columnNumber": 6
+        }
+      },
+      {
+        "name": "BottomSheet",
+        "type": "FunctionComponent",
+        "source": {
+          "fileName": "src/components/PWAInstallPrompt/PWAInstallPrompt.tsx",
+          "lineNumber": 93,
+          "columnNumber": 4
+        }
+      },
+      {
+        "name": "PWAInstallPrompt",
+        "type": "FunctionComponent",
+        "source": {
+          "fileName": "src/pages/OnboardingPage.tsx",
+          "lineNumber": 133,
+          "columnNumber": 8
+        }
+      },
+      {
+        "name": "OnboardingPage",
+        "type": "FunctionComponent",
+        "source": {
+          "fileName": "src/App.tsx",
+          "lineNumber": 104,
+          "columnNumber": 47
+        }
+      },
+      {
+        "name": "RenderedRoute",
+        "type": "FunctionComponent"
+      },
+      {
+        "name": "Routes",
+        "type": "FunctionComponent",
+        "source": {
+          "fileName": "src/App.tsx",
+          "lineNumber": 101,
+          "columnNumber": 16
+        }
+      },
+      {
+        "name": "Router",
+        "type": "FunctionComponent"
+      },
+      {
+        "name": "BrowserRouter",
+        "type": "FunctionComponent",
+        "source": {
+          "fileName": "src/App.tsx",
+          "lineNumber": 98,
+          "columnNumber": 14
+        }
+      },
+      {
+        "name": "ThemeProvider",
+        "type": "FunctionComponent",
+        "source": {
+          "fileName": "src/App.tsx",
+          "lineNumber": 97,
+          "columnNumber": 12
+        }
+      }
+    ]
+  }
+}

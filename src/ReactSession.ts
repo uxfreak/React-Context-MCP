@@ -367,4 +367,240 @@ export class ReactSession {
       snapshotId,
     };
   }
+
+  async getComponentMap(verbose = true, includeState = false): Promise<string | null> {
+    // Get accessibility snapshot with backendDOMNodeId for correlation
+    const snapshot = await this.takeSnapshot(verbose);
+    if (!snapshot) {
+      return null;
+    }
+
+    // Build a map of backendDOMNodeId -> accessibility info for quick lookup
+    const axNodeMap = new Map<number, {role?: string; name?: string}>();
+    const buildAxMap = (node: any) => {
+      if (node.backendDOMNodeId) {
+        axNodeMap.set(node.backendDOMNodeId, {
+          role: node.role,
+          name: node.name,
+        });
+      }
+      if (node.children) {
+        for (const child of node.children) {
+          buildAxMap(child);
+        }
+      }
+    };
+    buildAxMap(snapshot.root);
+
+    // Walk the React Fiber tree and build component tree with accessibility info
+    const result = await this.#page.evaluate(
+      (includeStateArg: boolean) => {
+        const hook = (globalThis as any).__REACT_DEVTOOLS_GLOBAL_HOOK__;
+        if (!hook || !hook.renderers || !hook.getFiberRoots) {
+          return {error: 'React DevTools hook not found or no renderers'};
+        }
+
+        // Helper to get component name from fiber
+        const getComponentName = (fiber: any): string => {
+          if (!fiber) return 'Unknown';
+          if (fiber.type?.displayName) return fiber.type.displayName;
+
+          switch (fiber.tag) {
+            case 0: // FunctionComponent
+            case 1: // ClassComponent
+              return fiber.type?.name || fiber.elementType?.name || 'Anonymous';
+            case 11: // ForwardRef
+              return (
+                fiber.type?.render?.displayName ||
+                fiber.type?.render?.name ||
+                fiber.elementType?.render?.name ||
+                'ForwardRef'
+              );
+            case 15: // MemoComponent
+              return (
+                fiber.type?.type?.displayName ||
+                fiber.type?.type?.name ||
+                fiber.elementType?.type?.name ||
+                'Memo'
+              );
+            default:
+              return 'Unknown';
+          }
+        };
+
+        // Helper to extract source location
+        const extractSource = (fiber: any) => {
+          const props = fiber.memoizedProps;
+          if (!props) return null;
+
+          const fileName = props['data-inspector-relative-path'];
+          const lineNumber = props['data-inspector-line'];
+          const columnNumber = props['data-inspector-column'];
+
+          if (fileName || lineNumber || columnNumber) {
+            return {
+              fileName: fileName || undefined,
+              lineNumber: lineNumber ? parseInt(lineNumber, 10) : undefined,
+              columnNumber: columnNumber ? parseInt(columnNumber, 10) : undefined,
+            };
+          }
+
+          return null;
+        };
+
+        // Helper to safe serialize state
+        const safeSerialize = (obj: any, maxDepth = 2, seen = new WeakSet()): any => {
+          if (obj === null || obj === undefined) return obj;
+          if (typeof obj !== 'object') return obj;
+          if (seen.has(obj)) return '[Circular]';
+          seen.add(obj);
+          if (maxDepth <= 0) return '[Max Depth]';
+          if (Array.isArray(obj))
+            return obj.slice(0, 10).map(item => safeSerialize(item, maxDepth - 1, seen));
+          if (obj.$$typeof) return '[React Element]';
+          if (obj instanceof Node) return '[DOM Node]';
+          if (typeof obj === 'function') return `[Function: ${obj.name || 'anonymous'}]`;
+
+          const result: any = {};
+          const entries = Object.entries(obj).slice(0, 20);
+          for (const [key, value] of entries) {
+            if (key.startsWith('__react')) continue;
+            result[key] = safeSerialize(value, maxDepth - 1, seen);
+          }
+          return result;
+        };
+
+        // Helper to get backendDOMNodeId from fiber's DOM node
+        const getBackendDOMNodeId = (fiber: any): number | null => {
+          // For host components (DOM elements), stateNode is the DOM element
+          if (fiber.tag === 5 && fiber.stateNode) {
+            // stateNode is the actual DOM element
+            const element = fiber.stateNode;
+            // backendDOMNodeId is internal to CDP, not accessible from page context
+            // We'll return a marker to indicate we should look it up
+            return null;
+          }
+          return null;
+        };
+
+        // Walk fiber tree depth-first and collect components
+        const lines: string[] = [];
+        const processedFibers = new WeakSet();
+
+        const walkFiber = (fiber: any, depth: number, prefix: string, isLast: boolean) => {
+          if (!fiber || processedFibers.has(fiber)) return;
+          processedFibers.add(fiber);
+
+          // Check if this is an authored component (not a host element)
+          const isComponent = [0, 1, 11, 15].includes(fiber.tag);
+          const isHostElement = fiber.tag === 5; // Host component (div, button, etc.)
+
+          if (isComponent) {
+            const name = getComponentName(fiber);
+            const source = extractSource(fiber);
+
+            let line = prefix;
+            line += name;
+
+            // Add props summary if available
+            if (fiber.memoizedProps) {
+              const propsKeys = Object.keys(fiber.memoizedProps).filter(
+                k => !k.startsWith('__react') && !k.startsWith('data-inspector') && k !== 'children',
+              );
+              if (propsKeys.length > 0) {
+                line += ` {${propsKeys.slice(0, 3).join(', ')}}`;
+              }
+            }
+
+            // Add state if requested and available
+            if (includeStateArg && fiber.memoizedState) {
+              const state = safeSerialize(fiber.memoizedState, 1);
+              const stateStr = JSON.stringify(state);
+              if (stateStr.length < 50) {
+                line += ` state=${stateStr}`;
+              } else {
+                line += ` state={...}`;
+              }
+            }
+
+            // Add source location
+            if (source) {
+              const loc = source.fileName
+                ? `${source.fileName}:${source.lineNumber || '?'}:${source.columnNumber || '?'}`
+                : '';
+              if (loc) {
+                line += ` (${loc})`;
+              }
+            }
+
+            lines.push(line);
+
+            // Update prefix for children
+            const childPrefix = prefix.replace(/├─/g, '│ ').replace(/└─/g, '  ');
+
+            // Process children
+            let child = fiber.child;
+            const children: any[] = [];
+            while (child) {
+              children.push(child);
+              child = child.sibling;
+            }
+
+            children.forEach((child, idx) => {
+              const isLastChild = idx === children.length - 1;
+              const connector = isLastChild ? '└─' : '├─';
+              walkFiber(child, depth + 1, childPrefix + connector + ' ', isLastChild);
+            });
+          } else if (isHostElement) {
+            // For host elements, still traverse children to find components
+            let child = fiber.child;
+            while (child) {
+              walkFiber(child, depth, prefix, isLast);
+              child = child.sibling;
+            }
+          } else {
+            // Other fiber types, just traverse children
+            let child = fiber.child;
+            while (child) {
+              walkFiber(child, depth, prefix, isLast);
+              child = child.sibling;
+            }
+          }
+        };
+
+        // Find all fiber roots and process them
+        let foundAny = false;
+        hook.renderers.forEach((_renderer: any, rendererId: number) => {
+          const roots = hook.getFiberRoots(rendererId);
+          if (!roots || roots.size === 0) return;
+
+          roots.forEach((root: any, idx: number) => {
+            if (!foundAny) {
+              lines.push('React Component Tree:');
+              lines.push('');
+              foundAny = true;
+            }
+
+            const fiber = root.current;
+            if (fiber) {
+              walkFiber(fiber, 0, '', true);
+            }
+          });
+        });
+
+        if (!foundAny) {
+          return {error: 'No React roots found'};
+        }
+
+        return {lines};
+      },
+      includeState,
+    );
+
+    if ('error' in result) {
+      return `Error: ${result.error}`;
+    }
+
+    return result.lines.join('\n');
+  }
 }

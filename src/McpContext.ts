@@ -145,4 +145,10 @@ export class McpContext {
     logger('takeSnapshot on selected page');
     return this.#getReactSession(page).takeSnapshot(verbose);
   }
+
+  async getComponentMap(verbose = true, includeState = false) {
+    const page = this.getSelectedPage();
+    logger('getComponentMap on selected page');
+    return this.#getReactSession(page).getComponentMap(verbose, includeState);
+  }
 }

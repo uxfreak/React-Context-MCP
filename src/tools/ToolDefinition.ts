@@ -35,6 +35,7 @@ export type Context = Readonly<{
   getComponentById(id: string): Promise<ComponentDetails | null>;
   highlightComponent(id: string): Promise<{ok: boolean; message: string}>;
   takeSnapshot(verbose?: boolean): Promise<Snapshot | null>;
+  getComponentMap(verbose?: boolean, includeState?: boolean): Promise<string | null>;
   getSelectedPage(): Page;
   getPages(): Page[];
   getPageByIdx(idx: number): Page;

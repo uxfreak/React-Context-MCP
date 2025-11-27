@@ -166,6 +166,27 @@ export const takeSnapshot = defineTool({
   },
 });
 
+export const getComponentMap = defineTool({
+  name: 'get_component_map',
+  description:
+    'Get a complete component map of the current page as a markdown tree. Returns only React components with their source locations in an indented tree format (e.g., "Button (src/components/Button.tsx:10:5)"). This is the primary tool for understanding React application structure at a glance.',
+  schema: {
+    verbose: zod.boolean().optional().describe('Include all DOM elements (true, default) or only interesting/interactive elements (false)'),
+    includeState: zod.boolean().optional().describe('Include component state (default: false, can be noisy)'),
+  },
+  handler: async (request, response, context) => {
+    const componentMap = await context.getComponentMap(
+      request.params.verbose ?? true,
+      request.params.includeState ?? false,
+    );
+    if (!componentMap) {
+      response.appendResponseLine('No component map available.');
+      return;
+    }
+    response.appendResponseLine(componentMap);
+  },
+});
+
 // Debug tool: Step 1 - Test finding React fiber keys on DOM elements
 export const debugFiberKeys = defineTool({
   name: 'debug_fiber_keys',
@@ -1608,6 +1629,7 @@ export const tools = [
   getComponent,
   highlightComponent,
   takeSnapshot,
+  getComponentMap,
   getReactComponentFromSnapshot,
   getReactComponentFromBackendNodeId,
 ];

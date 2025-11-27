@@ -1,0 +1,541 @@
+{
+  "root": {
+    "role": "RootWebArea",
+    "name": "Flyra — Dramatic Neon",
+    "uid": "1764270779090_0",
+    "backendDOMNodeId": 2,
+    "children": [
+      {
+        "role": "none",
+        "uid": "1764270779090_1",
+        "backendDOMNodeId": 7,
+        "children": [
+          {
+            "role": "none",
+            "uid": "1764270779090_2",
+            "backendDOMNodeId": 21,
+            "children": [
+              {
+                "role": "generic",
+                "name": "",
+                "uid": "1764270779090_3",
+                "backendDOMNodeId": 22,
+                "children": [
+                  {
+                    "role": "generic",
+                    "name": "",
+                    "uid": "1764270779090_4",
+                    "backendDOMNodeId": 23
+                  },
+                  {
+                    "role": "generic",
+                    "name": "",
+                    "uid": "1764270779090_5",
+                    "backendDOMNodeId": 24,
+                    "children": [
+                      {
+                        "role": "generic",
+                        "name": "",
+                        "uid": "1764270779090_6",
+                        "backendDOMNodeId": 25
+                      }
+                    ]
+                  },
+                  {
+                    "role": "generic",
+                    "name": "",
+                    "uid": "1764270779090_7",
+                    "backendDOMNodeId": 26,
+                    "children": [
+                      {
+                        "role": "generic",
+                        "name": "",
+                        "uid": "1764270779090_8",
+                        "backendDOMNodeId": 5
+                      },
+                      {
+                        "role": "generic",
+                        "name": "",
+                        "uid": "1764270779090_9",
+                        "backendDOMNodeId": 27,
+                        "children": [
+                          {
+                            "role": "generic",
+                            "name": "",
+                            "uid": "1764270779090_10",
+                            "backendDOMNodeId": 28,
+                            "children": [
+                              {
+                                "role": "generic",
+                                "name": "",
+                                "uid": "1764270779090_11",
+                                "backendDOMNodeId": 29
+                              },
+                              {
+                                "role": "generic",
+                                "name": "",
+                                "uid": "1764270779090_12",
+                                "backendDOMNodeId": 30,
+                                "children": [
+                                  {
+                                    "role": "generic",
+                                    "name": "",
+                                    "uid": "1764270779090_13",
+                                    "backendDOMNodeId": 31,
+                                    "children": [
+                                      {
+                                        "role": "button",
+                                        "name": "",
+                                        "uid": "1764270779090_14",
+                                        "backendDOMNodeId": 32
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "role": "generic",
+                                    "name": "",
+                                    "uid": "1764270779090_15",
+                                    "backendDOMNodeId": 36,
+                                    "children": [
+                                      {
+                                        "role": "none",
+                                        "uid": "1764270779090_16",
+                                        "backendDOMNodeId": 37,
+                                        "children": [
+                                          {
+                                            "role": "none",
+                                            "uid": "1764270779090_17",
+                                            "backendDOMNodeId": 38,
+                                            "children": [
+                                              {
+                                                "role": "heading",
+                                                "name": "Install Flyra",
+                                                "uid": "1764270779090_18",
+                                                "backendDOMNodeId": 39,
+                                                "children": [
+                                                  {
+                                                    "role": "StaticText",
+                                                    "name": "Install Flyra",
+                                                    "uid": "1764270779090_19",
+                                                    "backendDOMNodeId": 81,
+                                                    "children": [
+                                                      {
+                                                        "role": "InlineTextBox",
+                                                        "name": "Install Flyra",
+                                                        "uid": "1764270779090_20"
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "role": "paragraph",
+                                                "name": "",
+                                                "uid": "1764270779090_21",
+                                                "backendDOMNodeId": 40,
+                                                "children": [
+                                                  {
+                                                    "role": "StaticText",
+                                                    "name": "Faster access, smoother experience, and a more app‑like feel.",
+                                                    "uid": "1764270779090_22",
+                                                    "backendDOMNodeId": 82,
+                                                    "children": [
+                                                      {
+                                                        "role": "InlineTextBox",
+                                                        "name": "Faster access, smoother experience, and a more app‑like feel.",
+                                                        "uid": "1764270779090_23"
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "role": "generic",
+                                            "name": "",
+                                            "uid": "1764270779090_24",
+                                            "backendDOMNodeId": 41,
+                                            "children": [
+                                              {
+                                                "role": "StaticText",
+                                                "name": "Ready to install on this device.",
+                                                "uid": "1764270779090_25",
+                                                "backendDOMNodeId": 83,
+                                                "children": [
+                                                  {
+                                                    "role": "InlineTextBox",
+                                                    "name": "Ready to install on this device.",
+                                                    "uid": "1764270779090_26"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "role": "button",
+                                            "name": "Install app",
+                                            "uid": "1764270779090_27",
+                                            "backendDOMNodeId": 42,
+                                            "children": [
+                                              {
+                                                "role": "none",
+                                                "uid": "1764270779090_28",
+                                                "backendDOMNodeId": 6,
+                                                "children": [
+                                                  {
+                                                    "role": "StaticText",
+                                                    "name": "Install app",
+                                                    "uid": "1764270779090_29",
+                                                    "backendDOMNodeId": 84,
+                                                    "children": [
+                                                      {
+                                                        "role": "InlineTextBox",
+                                                        "name": "Install app",
+                                                        "uid": "1764270779090_30"
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "role": "button",
+                                            "name": "Not now",
+                                            "uid": "1764270779090_31",
+                                            "backendDOMNodeId": 43,
+                                            "children": [
+                                              {
+                                                "role": "StaticText",
+                                                "name": "Not now",
+                                                "uid": "1764270779090_32",
+                                                "backendDOMNodeId": 85,
+                                                "children": [
+                                                  {
+                                                    "role": "InlineTextBox",
+                                                    "name": "Not now",
+                                                    "uid": "1764270779090_33"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "role": "generic",
+                        "name": "",
+                        "uid": "1764270779090_34",
+                        "backendDOMNodeId": 44,
+                        "children": [
+                          {
+                            "role": "generic",
+                            "name": "",
+                            "uid": "1764270779090_35",
+                            "backendDOMNodeId": 45
+                          },
+                          {
+                            "role": "none",
+                            "uid": "1764270779090_36",
+                            "backendDOMNodeId": 46,
+                            "children": [
+                              {
+                                "role": "none",
+                                "uid": "1764270779090_37",
+                                "backendDOMNodeId": 47,
+                                "children": [
+                                  {
+                                    "role": "none",
+                                    "uid": "1764270779090_38",
+                                    "backendDOMNodeId": 48,
+                                    "children": [
+                                      {
+                                        "role": "heading",
+                                        "name": "Send instantly with USDC",
+                                        "uid": "1764270779090_39",
+                                        "backendDOMNodeId": 49,
+                                        "children": [
+                                          {
+                                            "role": "StaticText",
+                                            "name": "Send instantly with USDC",
+                                            "uid": "1764270779090_40",
+                                            "backendDOMNodeId": 86,
+                                            "children": [
+                                              {
+                                                "role": "InlineTextBox",
+                                                "name": "Send instantly with USDC",
+                                                "uid": "1764270779090_41"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "role": "none",
+                                    "uid": "1764270779090_42",
+                                    "backendDOMNodeId": 50,
+                                    "children": [
+                                      {
+                                        "role": "paragraph",
+                                        "name": "",
+                                        "uid": "1764270779090_43",
+                                        "backendDOMNodeId": 51,
+                                        "children": [
+                                          {
+                                            "role": "StaticText",
+                                            "name": "Cheaper, faster transfers — no hidden fees, no delays.",
+                                            "uid": "1764270779090_44",
+                                            "backendDOMNodeId": 87,
+                                            "children": [
+                                              {
+                                                "role": "InlineTextBox",
+                                                "name": "Cheaper, faster transfers — no hidden fees, no delays.",
+                                                "uid": "1764270779090_45"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "role": "none",
+                                "uid": "1764270779090_46",
+                                "backendDOMNodeId": 52,
+                                "children": [
+                                  {
+                                    "role": "generic",
+                                    "name": "",
+                                    "uid": "1764270779090_47",
+                                    "backendDOMNodeId": 53,
+                                    "children": [
+                                      {
+                                        "role": "generic",
+                                        "name": "",
+                                        "uid": "1764270779090_48",
+                                        "backendDOMNodeId": 54,
+                                        "children": [
+                                          {
+                                            "role": "image",
+                                            "name": "Send instantly with USDC illustration",
+                                            "uid": "1764270779090_49",
+                                            "backendDOMNodeId": 55
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "role": "generic",
+                            "name": "",
+                            "uid": "1764270779090_50",
+                            "backendDOMNodeId": 56
+                          },
+                          {
+                            "role": "generic",
+                            "name": "",
+                            "uid": "1764270779090_51",
+                            "backendDOMNodeId": 57,
+                            "children": [
+                              {
+                                "role": "generic",
+                                "name": "",
+                                "uid": "1764270779090_52",
+                                "backendDOMNodeId": 58,
+                                "children": [
+                                  {
+                                    "role": "generic",
+                                    "name": "",
+                                    "uid": "1764270779090_53",
+                                    "backendDOMNodeId": 59
+                                  }
+                                ]
+                              },
+                              {
+                                "role": "generic",
+                                "name": "",
+                                "uid": "1764270779090_54",
+                                "backendDOMNodeId": 61,
+                                "children": [
+                                  {
+                                    "role": "generic",
+                                    "name": "",
+                                    "uid": "1764270779090_55",
+                                    "backendDOMNodeId": 62
+                                  }
+                                ]
+                              },
+                              {
+                                "role": "generic",
+                                "name": "",
+                                "uid": "1764270779090_56",
+                                "backendDOMNodeId": 64,
+                                "children": [
+                                  {
+                                    "role": "generic",
+                                    "name": "",
+                                    "uid": "1764270779090_57",
+                                    "backendDOMNodeId": 65
+                                  }
+                                ]
+                              },
+                              {
+                                "role": "generic",
+                                "name": "",
+                                "uid": "1764270779090_58",
+                                "backendDOMNodeId": 67,
+                                "children": [
+                                  {
+                                    "role": "generic",
+                                    "name": "",
+                                    "uid": "1764270779090_59",
+                                    "backendDOMNodeId": 68
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "role": "generic",
+                            "name": "",
+                            "uid": "1764270779090_60",
+                            "backendDOMNodeId": 70,
+                            "children": [
+                              {
+                                "role": "none",
+                                "uid": "1764270779090_61",
+                                "backendDOMNodeId": 71,
+                                "children": [
+                                  {
+                                    "role": "generic",
+                                    "name": "",
+                                    "uid": "1764270779090_62",
+                                    "backendDOMNodeId": 72,
+                                    "children": [
+                                      {
+                                        "role": "generic",
+                                        "name": "",
+                                        "uid": "1764270779090_63",
+                                        "backendDOMNodeId": 73
+                                      },
+                                      {
+                                        "role": "button",
+                                        "name": "Sign up",
+                                        "uid": "1764270779090_64",
+                                        "backendDOMNodeId": 74,
+                                        "children": [
+                                          {
+                                            "role": "none",
+                                            "uid": "1764270779090_65",
+                                            "backendDOMNodeId": 75,
+                                            "children": [
+                                              {
+                                                "role": "StaticText",
+                                                "name": "Sign up",
+                                                "uid": "1764270779090_66",
+                                                "backendDOMNodeId": 88,
+                                                "children": [
+                                                  {
+                                                    "role": "InlineTextBox",
+                                                    "name": "Sign up",
+                                                    "uid": "1764270779090_67"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "role": "none",
+                                "uid": "1764270779090_68",
+                                "backendDOMNodeId": 76,
+                                "children": [
+                                  {
+                                    "role": "paragraph",
+                                    "name": "",
+                                    "uid": "1764270779090_69",
+                                    "backendDOMNodeId": 77,
+                                    "children": [
+                                      {
+                                        "role": "StaticText",
+                                        "name": "Already signed up?",
+                                        "uid": "1764270779090_70",
+                                        "backendDOMNodeId": 89,
+                                        "children": [
+                                          {
+                                            "role": "InlineTextBox",
+                                            "name": "Already signed up?",
+                                            "uid": "1764270779090_71"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "role": "button",
+                                    "name": "Log in",
+                                    "uid": "1764270779090_72",
+                                    "backendDOMNodeId": 78,
+                                    "children": [
+                                      {
+                                        "role": "none",
+                                        "uid": "1764270779090_73",
+                                        "backendDOMNodeId": 79,
+                                        "children": [
+                                          {
+                                            "role": "StaticText",
+                                            "name": "Log in",
+                                            "uid": "1764270779090_74",
+                                            "backendDOMNodeId": 90,
+                                            "children": [
+                                              {
+                                                "role": "InlineTextBox",
+                                                "name": "Log in",
+                                                "uid": "1764270779090_75"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "snapshotId": "1764270779090"
+}
