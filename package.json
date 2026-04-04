@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.21.1",
+    "bippy": "^0.5.32",
     "core-js": "3.47.0",
     "debug": "4.4.3",
     "puppeteer": "24.31.0",

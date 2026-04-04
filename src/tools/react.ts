@@ -1617,6 +1617,15 @@ export const testCdpExtractFiber = defineTool({
 // Production tools only - debug and test tools excluded
 // Removed: ensureReactAttached, listReactRoots, listComponents, getComponent, highlightComponent, getReactComponentFromSnapshot
 // These are kept as internal utilities but not exposed as MCP tools
+// Import bippy-powered tools
+import {
+  getComponentSource,
+  getElementContext,
+  getComputedStyles,
+  freezePage,
+  unfreezePage,
+} from './bippy.js';
+
 export const tools = [
   // Page management tools
   listPages,
@@ -1628,4 +1637,10 @@ export const tools = [
   takeSnapshot,
   getComponentMap,
   getReactComponentFromBackendNodeId,
+  // bippy-powered tools (Fiber introspection)
+  getComponentSource,
+  getElementContext,
+  getComputedStyles,
+  freezePage,
+  unfreezePage,
 ];
