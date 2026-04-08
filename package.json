@@ -1,6 +1,6 @@
 {
   "name": "react-context-mcp",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "MCP server for React DevTools - inspect React applications via Model Context Protocol",
   "type": "module",
   "bin": {
